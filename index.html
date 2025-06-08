@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>送给妈妈的生日礼物</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffeef2;
+      font-family: 'KaiTi', 'Microsoft YaHei', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .heart {
+      font-size: 80px;
+      animation: pulse 1s infinite;
+      cursor: pointer;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .prompt {
+      margin-top: 20px;
+      font-size: 1.4em;
+      color: #d6336c;
+    }
+
+    .poem, .photo {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .poem-content {
+      font-size: 1.4em;
+      color: #b30059;
+      white-space: pre-wrap;
+      text-align: left;
+    }
+
+    .photo img {
+      max-width: 80vw;
+      max-height: 60vh;
+      margin-top: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="guofeng-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="heart" onclick="startTyping()">❤️</div>
+  <div class="prompt">点击爱心</div>
+
+  <div class="poem" id="poem">
+    <div class="poem-content" id="poemContent"></div>
+  </div>
+
+  <div class="photo" id="photo">
+    <div class="poem-content">妈妈，生日快乐 ❤️</div>
+    <img src="photo.jpg" alt="我们合照">
+  </div>
+
+  <script>
+    const poemLines = [
+      "十载春秋，异国他乡。",
+      "为我思愁，寝食难安。",
+      "夜思未来灯下影，",
+      "心牵梦系在眉头。",
+      "我愿誓，此生不负，",
+      "岁岁常留。",
+      "自知未是凌云志。",
+      "愿他年，光耀亲眸。",
+      "立志修身立业，",
+      "长报母恩悠悠。",
+      "也为自己。",
+      "但愿年年今日，",
+      "喜乐长绕庭庐。",
+      "愿岁岁，春满眉梢，",
+      "康健如初。"
+    ];
+
+    let currentLine = 0;
+    let currentChar = 0;
+    let displayText = "";
+
+    function startTyping() {
+      document.querySelector('.heart').style.display = 'none';
+      document.querySelector('.prompt').style.display = 'none';
+      document.getElementById('poem').style.display = 'flex';
+      typeChar();
+    }
+
+    function typeChar() {
+      if (currentLine < poemLines.length) {
+        let line = poemLines[currentLine];
+        if (currentChar < line.length) {
+          displayText += line[currentChar];
+          currentChar++;
+          document.getElementById("poemContent").innerText = displayText;
+          setTimeout(typeChar, 100);
+        } else {
+          displayText += "\n";
+          currentLine++;
+          currentChar = 0;
+          setTimeout(typeChar, 300);
+        }
+      } else {
+        document.getElementById("poem").style.display = 'none';
+        document.getElementById("photo").style.display = 'flex';
+      }
+    }
+  </script>
+</body>
+</html>
